@@ -13,7 +13,7 @@ namespace HospitalProgram
 {
     public partial class Form1 : Form
     {
-        // global var
+        // global varuable
         long last_id;
 
        
