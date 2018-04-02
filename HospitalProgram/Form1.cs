@@ -80,7 +80,7 @@ namespace HospitalProgram
             MySqlCommand command = connectinString.CreateCommand();
             command.CommandText = "SELECT count(*) FROM hospitaldatabase.patient";
             last_id = System.Convert.ToInt32( command.ExecuteScalar());
-            for (int i = 1; i<= last_id; i++)
+            for (int i = 0; i< last_id; i++)
             {
                 comboBox1.Items.Add(i);
 
@@ -94,6 +94,15 @@ namespace HospitalProgram
             connectinString.Open();
             MySqlCommand command = connectinString.CreateCommand();
             command.CommandText = "DELETE FROM patient WHERE name ='" + textBox3.Text+"'";
+            command.ExecuteNonQuery();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            MySqlConnection connectinString = new MySqlConnection("server=Localhost;user id=root;database=hospitaldatabase;password=h4647dai;");
+            connectinString.Open();
+            MySqlCommand command = connectinString.CreateCommand();
+            command.CommandText = "UPDATE patient SET name = '" + textBox3.Text + "' WHERE name='" + textBox4.Text+"'";
             command.ExecuteNonQuery();
         }
     }
