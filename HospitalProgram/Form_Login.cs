@@ -11,8 +11,10 @@ using MySql.Data.MySqlClient;
 
 namespace HospitalProgram
 {
+    
     public partial class Form_Login : Form
     {
+     
         MySqlConnection connectinString = new MySqlConnection("server=Localhost;user id=root;database=hospitaldatabase;password=h4647dai;");
         public Form_Login()
         {
@@ -21,7 +23,6 @@ namespace HospitalProgram
 
         private void Form_Login_Load(object sender, EventArgs e)
         {
-            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -41,12 +42,9 @@ namespace HospitalProgram
                 MessageBox.Show("Bad password or username", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
-            {
-               
+            { 
                 connectinString.Close();
                 this.Close();
-               
-          
             }
             connectinString.Close();
 

@@ -18,18 +18,12 @@ namespace HospitalProgram
     {
         // global varuable
         long last_id;
-        short sec = 0;
 
         MySqlConnection connectinString = new MySqlConnection("server=Localhost;user id=root;database=hospitaldatabase;password=h4647dai;");
-
-
         public Form1()
         {
-           
             InitializeComponent();
-
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
            connectinString.Open();
@@ -97,7 +91,7 @@ namespace HospitalProgram
             }
             connectinString.Close();
             Form_Login fl = new Form_Login();
-            fl.Show();
+            fl.ShowDialog();
             // Bottom status
             toolStripStatusLabel1.Text = "Status: ready";
             
@@ -128,7 +122,7 @@ namespace HospitalProgram
         private void button5_Click(object sender, EventArgs e)
         {
             listBox1.Items.Clear();
-            listBox1.Items.Add("ID | Name | Days | Cityz");
+            listBox1.Items.Add("ID | Name | Days | City");
             string list_line = ""; // string line to add all information in listBox1
             connectinString.Open();
             MySqlCommand command = connectinString.CreateCommand();
@@ -200,15 +194,7 @@ namespace HospitalProgram
 
         private void Form1_Activated(object sender, EventArgs e)
         {
-            ++sec;
-            if (sec == 1)
-            {
-                Form_Login fl = new Form_Login();
-                fl.Show();
-
-            }
-            else return;
-
+            
                 
         
          
