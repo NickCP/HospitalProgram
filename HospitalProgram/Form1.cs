@@ -15,8 +15,9 @@ namespace HospitalProgram
     {
         // global varuable
         long last_id;
+        MySqlConnection connectinString = new MySqlConnection("server=Localhost;user id=root;database=hospitaldatabase;password=h4647dai;");
 
-       
+
         public Form1()
         {
            
@@ -26,8 +27,7 @@ namespace HospitalProgram
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MySqlConnection connectinString = new MySqlConnection("server=Localhost;user id=root;database=hospitaldatabase;password=h4647dai;");
-            connectinString.Open();
+           connectinString.Open();
             MySqlCommand command = connectinString.CreateCommand();
             command.CommandText = "SELECT * FROM patient WHERE idpatient="+comboBox1.SelectedItem.ToString()+"";
             MySqlDataReader reader = command.ExecuteReader();
@@ -36,10 +36,10 @@ namespace HospitalProgram
                 label1.Text = "Name: "+ reader["name"].ToString();
                 label2.Text = "Days: " + reader["days"].ToString();
                 label3.Text = "City: " + reader["city"].ToString();
-             
             }
-            
-           
+            connectinString.Close();
+
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -64,18 +64,21 @@ namespace HospitalProgram
 
         private void button2_Click(object sender, EventArgs e)
         {
-            MySqlConnection connectinString = new MySqlConnection("server=Localhost;user id=root;database=hospitaldatabase;password=h4647dai;");
+            // Adding a new visitor information in database
             connectinString.Open();
             MySqlCommand command = connectinString.CreateCommand();
             command.CommandText = "INSERT  INTO hospitaldatabase.patient (name,days,city) values ('" +textBox1.Text + "','"+domainUpDown1.Text+"','"+textBox2.Text+"')";
             command.ExecuteNonQuery();
             last_id = last_id + 1;
             comboBox1.Items.Add(last_id);
+            connectinString.Close();
+            // Bottom status
+            toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + "Successfully added";
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            MySqlConnection connectinString = new MySqlConnection("server=Localhost;user id=root;database=hospitaldatabase;password=h4647dai;");
+           
             connectinString.Open();
             MySqlCommand command = connectinString.CreateCommand();
             command.CommandText = "SELECT count(*) FROM hospitaldatabase.patient";
@@ -85,25 +88,31 @@ namespace HospitalProgram
                 comboBox1.Items.Add(i);
 
             }
-
+            connectinString.Close();
+            // Bottom status
+            toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + "Ready";
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            MySqlConnection connectinString = new MySqlConnection("server=Localhost;user id=root;database=hospitaldatabase;password=h4647dai;");
             connectinString.Open();
             MySqlCommand command = connectinString.CreateCommand();
             command.CommandText = "DELETE FROM patient WHERE name ='" + textBox3.Text+"'";
             command.ExecuteNonQuery();
+            connectinString.Close();
+            // Bottom status
+            toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + "Successfully deleted";
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            MySqlConnection connectinString = new MySqlConnection("server=Localhost;user id=root;database=hospitaldatabase;password=h4647dai;");
             connectinString.Open();
             MySqlCommand command = connectinString.CreateCommand();
             command.CommandText = "UPDATE patient SET name = '" + textBox3.Text + "' WHERE name='" + textBox4.Text+"'";
             command.ExecuteNonQuery();
+            connectinString.Close();
+            // Bottom status
+            toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + "Successfully changed";
         }
     }
 }
