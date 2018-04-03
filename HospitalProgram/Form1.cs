@@ -39,7 +39,7 @@ namespace HospitalProgram
             }
             //Close connections
             connectinString.Close();
-            toolStripStatusLabel1.Text = "Successfully geted";
+            toolStripStatusLabel1.Text = "Status: successfully geted";
 
 
         }
@@ -75,7 +75,7 @@ namespace HospitalProgram
             comboBox1.Items.Add(last_id);
             connectinString.Close();
             // Bottom status
-            toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + "Successfully added";
+            toolStripStatusLabel1.Text = "Status: successfully added";
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -131,13 +131,63 @@ namespace HospitalProgram
                 list_line = list_line + reader["idpatient"].ToString() + "  | ";
                 list_line = list_line + reader["name"].ToString()+" | ";
                 list_line = list_line + reader["days"].ToString() + " | ";
-                list_line = list_line + reader["city"].ToString() + " | ";
+                list_line = list_line + reader["city"].ToString();
                 list_line = list_line + "\n";
                listBox1.Items.Add(list_line);
                 list_line = "";
             }
             //Close connections
             connectinString.Close();
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedIndex == 0)
+            {
+                MessageBox.Show("Error, choose other index","Error" , MessageBoxButtons.OK,MessageBoxIcon.Error);
+                return;
+            }
+            string templ_line = ""; // string line to get information from listbox1
+            int templ_indx = 0;   // index of listbox line
+            int length_line = 0; // length of line
+            int [] symbol_position = new int[3];
+            int counter = 0;
+            int [] cut_len = new int[3]; // variable to length cut
+            
+            // main variables
+            int idpatient;
+            int days;
+            string name;
+            string city;
+
+            templ_indx =listBox1.SelectedIndex;
+            templ_line = listBox1.Items[templ_indx].ToString();
+            
+            length_line = templ_line.Length;
+            for (int i = 0;i<length_line ; ++i)
+            {
+                if (templ_line[i] == '|')
+                {
+                    symbol_position[counter] = i+2;
+                    ++counter;
+                }  
+
+            }
+            cut_len[0] = (symbol_position[1] - symbol_position[0])-2;
+            cut_len[1] = (symbol_position[2] - symbol_position[1])-2;
+            cut_len[2] = length_line - symbol_position[2];
+            idpatient = Int32.Parse(templ_line.Substring(0,1));
+            name = templ_line.Substring(symbol_position[0],cut_len[0]);
+            days = Int32.Parse(templ_line.Substring(symbol_position[1], cut_len[1]));
+            city = templ_line.Substring(symbol_position[2], cut_len[2]);
+
+            // show information
+            label1.Text = "Name: " + name;
+            label2.Text = "Days: " + days;
+            label3.Text = "City: " + city;
+            comboBox1.Text = idpatient.ToString();
+            textBox3.Text = name;
+
         }
     }
 }
