@@ -37,6 +37,7 @@ namespace HospitalProgram
                 label2.Text = "Days: " + reader["days"].ToString();
                 label3.Text = "City: " + reader["city"].ToString();
             }
+            //Close connections
             connectinString.Close();
 
 
