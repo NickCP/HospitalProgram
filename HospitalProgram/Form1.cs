@@ -9,12 +9,17 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
+
+
 namespace HospitalProgram
 {
+   
     public partial class Form1 : Form
     {
         // global varuable
         long last_id;
+        short sec = 0;
+
         MySqlConnection connectinString = new MySqlConnection("server=Localhost;user id=root;database=hospitaldatabase;password=h4647dai;");
 
 
@@ -91,8 +96,11 @@ namespace HospitalProgram
 
             }
             connectinString.Close();
+            Form_Login fl = new Form_Login();
+            fl.Show();
             // Bottom status
             toolStripStatusLabel1.Text = "Status: ready";
+            
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -188,6 +196,22 @@ namespace HospitalProgram
             comboBox1.Text = idpatient.ToString();
             textBox3.Text = name;
 
+        }
+
+        private void Form1_Activated(object sender, EventArgs e)
+        {
+            ++sec;
+            if (sec == 1)
+            {
+                Form_Login fl = new Form_Login();
+                fl.Show();
+
+            }
+            else return;
+
+                
+        
+         
         }
     }
 }
