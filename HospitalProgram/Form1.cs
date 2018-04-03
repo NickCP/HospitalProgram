@@ -39,6 +39,7 @@ namespace HospitalProgram
             }
             //Close connections
             connectinString.Close();
+            toolStripStatusLabel1.Text = "Successfully geted";
 
 
         }
@@ -84,14 +85,14 @@ namespace HospitalProgram
             MySqlCommand command = connectinString.CreateCommand();
             command.CommandText = "SELECT count(*) FROM hospitaldatabase.patient";
             last_id = System.Convert.ToInt32( command.ExecuteScalar());
-            for (int i = 0; i< last_id; i++)
+            for (int i = 1; i<= last_id; i++)
             {
                 comboBox1.Items.Add(i);
 
             }
             connectinString.Close();
             // Bottom status
-            toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + "Ready";
+            toolStripStatusLabel1.Text = "Status: ready";
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -102,7 +103,7 @@ namespace HospitalProgram
             command.ExecuteNonQuery();
             connectinString.Close();
             // Bottom status
-            toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + "Successfully deleted";
+            toolStripStatusLabel1.Text = "Status: successfully deleted";
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -113,7 +114,30 @@ namespace HospitalProgram
             command.ExecuteNonQuery();
             connectinString.Close();
             // Bottom status
-            toolStripStatusLabel1.Text = toolStripStatusLabel1.Text + "Successfully changed";
+            toolStripStatusLabel1.Text = "Status: successfully changed";
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.Clear();
+            listBox1.Items.Add("ID | Name | Days | Cityz");
+            string list_line = ""; // string line to add all information in listBox1
+            connectinString.Open();
+            MySqlCommand command = connectinString.CreateCommand();
+            command.CommandText = "SELECT * FROM patient";
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                list_line = list_line + reader["idpatient"].ToString() + "  | ";
+                list_line = list_line + reader["name"].ToString()+" | ";
+                list_line = list_line + reader["days"].ToString() + " | ";
+                list_line = list_line + reader["city"].ToString() + " | ";
+                list_line = list_line + "\n";
+               listBox1.Items.Add(list_line);
+                list_line = "";
+            }
+            //Close connections
+            connectinString.Close();
         }
     }
 }
