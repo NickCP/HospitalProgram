@@ -199,5 +199,27 @@ namespace HospitalProgram
         
          
         }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form_Login fl = new Form_Login();
+            fl.ShowDialog();
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            label1.Text = "Name:";
+            label2.Text = "Days:";
+            label3.Text = "City:";
+            textBox1.Text = "Name";
+            domainUpDown1.Text = "1";
+            textBox2.Text = "City";
+            textBox3.Text = "";
+            textBox4.Text = "";
+            comboBox1.Text = "-select id-";
+            listBox1.Items.Clear();
+            listBox1.Items.Add("ID | Name | Days | City");
+
+        }
     }
 }
