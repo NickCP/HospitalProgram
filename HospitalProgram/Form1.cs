@@ -16,7 +16,7 @@ namespace HospitalProgram
    
     public partial class Form1 : Form
     {
-        // global varuable
+        // global variable
         long last_id;
 
         MySqlConnection connectinString = new MySqlConnection("server=Localhost;user id=root;database=hospitaldatabase;password=h4647dai;");
