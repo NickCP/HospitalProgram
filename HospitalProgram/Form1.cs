@@ -121,6 +121,7 @@ namespace HospitalProgram
 
         private void button5_Click(object sender, EventArgs e)
         {
+            button5.Text = "Refresh";
             listBox1.Items.Clear();
             listBox1.Items.Add("ID | Name | Days | City");
             string list_line = ""; // string line to add all information in listBox1
@@ -202,8 +203,23 @@ namespace HospitalProgram
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            label1.Text = "Name:";
+            label2.Text = "Days:";
+            label3.Text = "City:";
+            textBox1.Text = "Name";
+            domainUpDown1.Text = "1";
+            textBox2.Text = "City";
+            textBox3.Text = "";
+            textBox4.Text = "";
+            comboBox1.Text = "-select id-";
+            listBox1.Items.Clear();
+            listBox1.Items.Add("ID | Name | Days | City");
+
+            // exit to login form
             Form_Login fl = new Form_Login();
             fl.ShowDialog();
+
+            
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -219,6 +235,7 @@ namespace HospitalProgram
             comboBox1.Text = "-select id-";
             listBox1.Items.Clear();
             listBox1.Items.Add("ID | Name | Days | City");
+            button5.Text = "Get all";
 
         }
     }
